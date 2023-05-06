@@ -53,12 +53,25 @@ flatpak-spawn --host python3 <<EOF
 import json
 
 with open("$VSCODE_GLOBAL_CONFIG", 'r+') as fd:
-	data = json.loads(fd.read())
-	data['dev.containers.dockerPath'] = '/app/tools/podman/bin/podman-remote'
-	data['dev.containers.dockerComposePath'] = 'podman-compose'
-	fd.seek(0)
-	fd.write(json.dumps(data))
+     data = json.loads(fd.read())
+     data['dev.containers.dockerPath'] = '/app/tools/podman/bin/podman-remote'
+     data['dev.containers.dockerComposePath'] = 'podman-compose'
+     fd.seek(0)
+     fd.truncate()
+     fd.write(json.dumps(data))
 EOF
+
+CTR_ENV="$(flatpak-spawn --host podman inspect ${CONTAINER_ID} --format='{{.Config.Env}}')"
+if ! echo "$CTR_ENV" | grep -q "HOME=$HOME" ;then
+     echo "[-] Incorrect HOME env is set, this can be (temporairly) solved by running the following on your **host**:"
+     echo "sudo sed -i \"s|HOME=[^\\\"]*|HOME=$HOME|g\" $HOME/.local/share/containers/storage/overlay-containers/$CONTAINER_ID/userdata/config.json"
+     exit 1
+fi
+
+rm -rf "$HOME/.vscode-server" 
+sudo mkdir -p /opt/vscode-server/
+sudo chmod a+rwx /opt/vscode-server/
+ln -T -sf /opt/vscode-server/ "$HOME/.vscode-server" 
 
 # Actually make sure that we have the remote containers vscode extension
 flatpak-spawn --host flatpak run com.visualstudio.code --install-extension ms-vscode-remote.remote-containers
