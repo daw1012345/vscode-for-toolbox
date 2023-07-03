@@ -1,6 +1,6 @@
 # VScode for Toolbox - Simple yet robust helper script for VSCode-Toolbox Integration
 
-The repository consists of 
+This repository contains a simple, modern script automating smooth integration of Toolbox containers and VSCode (Flatpak).
 
 ## Installation
 
