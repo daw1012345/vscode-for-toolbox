@@ -33,17 +33,7 @@ if [ -f "$CONFIG_FILE" ] && [ ! 'grep -q "remoteUser" "$CONFIG_FILE"' ]; then
      echo "[!!!!!!] You already have a configuration file for this container but the remoteUser option is missing. No changes will be made, but you may experience issues with permissions."
 fi
 
-CTR_ENV="$(flatpak-spawn --host podman inspect ${CONTAINER_ID} --format='{{.Config.Env}}')"
-if ! echo "$CTR_ENV" | grep -q "HOME=$HOME" ;then
-     echo "[-] Incorrect HOME env is set, this can be (temporairly) solved by running the following on your **host**:"
-     echo "sudo sed -i \"s|HOME=[^\\\"]*|HOME=$HOME|g\" $HOME/.local/share/containers/storage/overlay-containers/$CONTAINER_ID/userdata/config.json"
-     exit 1
-fi
-
-rm -rf "$HOME/.vscode-server" 
-sudo mkdir -p /opt/vscode-server/
-sudo chmod a+rwx /opt/vscode-server/
-ln -T -sf /opt/vscode-server/ "$HOME/.vscode-server" 
+sudo chmod -R a+rwx "$HOME/.vscode-server" 
 
 echo "[+] Launching VScode..."
 

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import json
 import os
-import shutil
 
 """Tell VSCode to use Podman instead of Docker"""
 def write_vscode_config():
@@ -28,16 +27,6 @@ def install_portal():
     print("Installing the Remote Containers VSCode extension")
     os.system("flatpak run com.visualstudio.code --install-extension ms-vscode-remote.remote-containers")
 
-def install_integration():
-    print("Installing helper...")
-    bin_path = os.path.expanduser("~/.local/bin")
-
-    if not os.path.exists(bin_path):
-         os.makedirs(bin_path)
-    shutil.copyfile("code.sh", os.path.expanduser("~/.local/bin/code"))
-    
-
 if __name__ == "__main__":
     install_portal()
     write_vscode_config()
-    install_integration()

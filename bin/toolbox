@@ -1,0 +1,8 @@
+#!/bin/bash
+
+if [[ "$*" == *"create"* ]]; then
+PATH="$HOME/vc-toolbox-helper/override:$PATH"
+/usr/bin/toolbox "$@"
+else
+/usr/bin/toolbox "$@"
+fi

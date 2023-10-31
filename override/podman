@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "$3" = "create" ]; then
+
+LOGLEVEL="$2"
+RANDOM_CHAR=$(openssl rand -hex 10)
+shift;shift;shift;
+
+/usr/bin/podman --log-level "$LOGLEVEL" create --env "HOME=$HOME" -v "vscserver_$RANDOM_CHAR":"$HOME/.vscode-server" "$@"
+else
+/usr/bin/podman "$@"
+fi
