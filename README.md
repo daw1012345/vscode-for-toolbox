@@ -12,7 +12,7 @@ git clone https://github.com/daw1012345/vscode-for-toolbox vc-toolbox-helper
 cd vc-toolbox-helper && ./install.py
 export PATH=$HOME/vc-toolbox-helper/bin:$PATH
 ```
-Make sure to add `$HOME/vc-toolbox-helper/bin` to your `$PATH` in a persistent way (and works within containers).
+Make sure to add `$HOME/vc-toolbox-helper/bin` to your `$PATH` in a persistent way (that works within containers).
 
 ## Usage
 
