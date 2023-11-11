@@ -26,6 +26,8 @@ def install_portal():
     os.system("flatpak override --user --filesystem=xdg-run/podman com.visualstudio.code")
     print("Installing the Remote Containers VSCode extension")
     os.system("flatpak run com.visualstudio.code --install-extension ms-vscode-remote.remote-containers")
+    print("Creating configuration directory")
+    os.system("mkdir -p $HOME/.var/app/com.visualstudio.code/config/Code/User/globalStorage/ms-vscode-remote.remote-containers/nameConfigs/")
 
 if __name__ == "__main__":
     install_portal()
