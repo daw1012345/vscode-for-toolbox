@@ -22,6 +22,7 @@ toolbox enter
 cd ~/my_project && code (Or code ~/my_project)
 ```
 
+Note: This currently only works with containers created **after** the installation of this tool. Support for existing containers is coming.
 ## Acknowledgements 
 This project is based on [toolbox-vscode](https://github.com/owtaylor/toolbox-vscode). However, that project seems abandoned as it does not work due to changes in VScode.
 The more up-to-date method of integrating vscode and toolbox containers is based on the method from [this great article](https://hackandslash.blog/how-to-run-vs-code-flatpak-with-a-toolbox-with-code-completion/).
