@@ -20,14 +20,16 @@ def write_vscode_config():
 
 """Install extension allowing containerized VSCode to use Podman on the host and the dev containers extension"""
 def install_portal():
+    print("Ensuring VSCode (Flatpak) is installed")
+    os.system("flatpak install com.visualstudio.code --noninteractive -y")
+    print("Creating configuration directory")
+    os.system("mkdir -p $HOME/.var/app/com.visualstudio.code/config/Code/User/globalStorage/ms-vscode-remote.remote-containers/nameConfigs/")
     print("Installing VSCode -> Podman portal")
     os.system("flatpak install com.visualstudio.code.tool.podman//22.08/ --noninteractive -y")
     print("Allowing VSCode to use Podman")
     os.system("flatpak override --user --filesystem=xdg-run/podman com.visualstudio.code")
     print("Installing the Remote Containers VSCode extension")
     os.system("flatpak run com.visualstudio.code --install-extension ms-vscode-remote.remote-containers")
-    print("Creating configuration directory")
-    os.system("mkdir -p $HOME/.var/app/com.visualstudio.code/config/Code/User/globalStorage/ms-vscode-remote.remote-containers/nameConfigs/")
 
 if __name__ == "__main__":
     install_portal()

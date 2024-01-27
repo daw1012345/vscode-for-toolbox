@@ -2,6 +2,7 @@
 
 This repository contains a simple, modern script automating smooth integration of Toolbox containers and VSCode (Flatpak).
 
+NOTE: This project depends on the Flatpak version of VSCode. If it's missing, the installation script will install it for you.
 
 ## Installation
 
