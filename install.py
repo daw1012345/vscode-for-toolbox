@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 import json
 import os
+from pathlib import Path
 
 """Tell VSCode to use Podman instead of Docker"""
 def write_vscode_config():
     print("Telling VSCode to use podman instead of Docker")
-    global_config_path = os.path.expanduser('~/.var/app/com.visualstudio.code/config/Code/User/settings.json')
+    global_config_path = Path(os.path.expanduser('~/.var/app/com.visualstudio.code/config/Code/User/settings.json'))
+    global_config_path.touch(exist_ok=True)
     with open(global_config_path, 'r+') as fd:
         try:
             data = json.loads(fd.read())
