@@ -27,11 +27,13 @@ def install_portal():
     print("Creating configuration directory")
     os.system("mkdir -p $HOME/.var/app/com.visualstudio.code/config/Code/User/globalStorage/ms-vscode-remote.remote-containers/nameConfigs/")
     print("Installing VSCode -> Podman portal")
-    os.system("flatpak install com.visualstudio.code.tool.podman//22.08/ --noninteractive -y")
+    os.system("flatpak install com.visualstudio.code.tool.podman//24.08/ --noninteractive -y")
     print("Allowing VSCode to use Podman")
     os.system("flatpak override --user --filesystem=xdg-run/podman com.visualstudio.code")
     print("Installing the Remote Containers VSCode extension")
-    os.system("flatpak run com.visualstudio.code --install-extension ms-vscode-remote.remote-containers")
+    os.system("flatpak run com.visualstudio.code --install-extension ms-vscode-remote.vscode-remote-extensionpack")
+    print("Enabling the podman socket")
+    os.system("systemctl --user enable --now podman.socket")
 
 if __name__ == "__main__":
     install_portal()

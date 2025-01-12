@@ -6,6 +6,8 @@ NOTE: This project depends on the Flatpak version of VSCode. If it's missing, th
 
 ## Installation
 
+**Make sure you run this from your own user account, not root. The scripts will use `sudo` (and therefore promt you for your password) where necessary.**
+
 ```bash
 sudo rpm-ostree install podman-compose
 cd ~/
@@ -14,7 +16,10 @@ cd vc-toolbox-helper && ./install.py
 export PATH=$HOME/vc-toolbox-helper/bin:$PATH
 ```
 Make sure to add `$HOME/vc-toolbox-helper/bin` to your `$PATH` in a persistent way (that works within containers).
+The approach here depends on the shell of your choice.
 
+- Bash: `echo 'export PATH=$HOME/vc-toolbox-helper/bin:$PATH' >> ~/.bashrc && source ~/.bashrc`
+- Fish: `fish_add_path $HOME/vc-toolbox-helper/bin`
 ## Usage
 
 ```bash
