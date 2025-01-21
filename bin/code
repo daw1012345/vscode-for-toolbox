@@ -33,7 +33,7 @@ if [ -f "$CONFIG_FILE" ] && [ ! 'grep -q "containerUser" "$CONFIG_FILE"' ]; then
      echo "[!!!!!!] You already have a configuration file for this container but the remoteUser option is missing. No changes will be made, but you may experience issues with permissions."
 fi
 
-if [ ! -f "$HOME/.vscode-server" ]; then
+if [ ! -d "$HOME/.vscode-server" ]; then
      sudo mkdir "$HOME/.vscode-server"
 fi
 
