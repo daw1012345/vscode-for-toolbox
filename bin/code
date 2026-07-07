@@ -20,16 +20,19 @@ CONTAINER_ID_ENC=$(echo -n "$CONTAINER_ID" | od -t x1 -A none -v | tr -d ' \n')
 
 CONFIG_FILE="$HOME/.var/app/com.visualstudio.code/config/Code/User/globalStorage/ms-vscode-remote.remote-containers/nameConfigs/$CONTAINER_NAME.json"
 
-# By default, VSCode will try to do everything as root messing up permissions. Force it to not do that
+# By default, VSCode will try to do everything as root messing up permissions. Force it to not do that.
+# For attached (already-running) containers, "remoteUser" is the property that controls the user VSCode
+# and its sub-processes (terminals, tasks, server) run as. "containerUser" is a devcontainer.json
+# (container-creation) property and is ignored on attach, which leaves terminals running as root.
 if [ ! -f "$CONFIG_FILE" ]; then
 cat >> "$CONFIG_FILE" <<EOF
 {
-  "containerUser": "\${localEnv:USER}",
+  "remoteUser": "\${localEnv:USER}",
 }
 EOF
 fi
 
-if [ -f "$CONFIG_FILE" ] && [ ! 'grep -q "containerUser" "$CONFIG_FILE"' ]; then
+if [ -f "$CONFIG_FILE" ] && ! grep -q "remoteUser" "$CONFIG_FILE"; then
      echo "[!!!!!!] You already have a configuration file for this container but the remoteUser option is missing. No changes will be made, but you may experience issues with permissions."
 fi
 
